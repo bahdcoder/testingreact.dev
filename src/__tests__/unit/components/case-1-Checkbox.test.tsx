@@ -22,8 +22,8 @@ describe('The <Checkbox /> component', () => {
     checked: false,
   }
 
-  const setupCheckbox = () => render(
-    <Checkbox {...defaultCheckboxProps} />,
+  const setupCheckbox = (props = defaultCheckboxProps) => render(
+    <Checkbox {...props} />,
   )
   it('Should render the label and checkbox the user will see', () => {
     const { asFragment } = setupCheckbox()
@@ -47,7 +47,14 @@ describe('The <Checkbox /> component', () => {
     expect(defaultCheckboxProps.onChange).toHaveBeenCalled()
   })
 
-  it('❌ Should change state correctly when clicked (checked and unchecked)', () => {})
+  it('❌ Should change state correctly when clicked (checked and unchecked)', () => {
+    const { getByLabelText } = setupCheckbox({
+      ...defaultCheckboxProps,
+      checked: true
+    })
+
+    expect(getByLabelText(defaultCheckboxProps.label)).toBeChecked()
+  })
 
   it('❌ should not fail any accessibility tests', async () => {})
 })
