@@ -12,6 +12,15 @@ jest.mock('../../helpers/axios')
 
 const mockAxios = Axios as any
 
+const productBuilder = build('Product', {
+  fields: {
+    id: fake(f => f.random.number()),
+    image: fake(f => f.image.imageUrl()),
+    name: fake(f => f.lorem.words()),
+    price: fake(f => `from $${f.random.number(100)}`)
+  }
+})
+
 describe('The app ', () => {
   const setupApp = () => render(
     <StoreProvider store={createStore()}>
@@ -23,17 +32,7 @@ describe('The app ', () => {
 
   test('it fetches and renders all products on the page', async () => {
     mockAxios.get.mockResolvedValue({
-      data: [{
-        id: 1,
-        name: 'test name 1',
-        image: 'image-1.png',
-        price: 'from $22.99'
-      }, {
-        id: 2,
-        name: 'test name 2',
-        image: 'image-2.png',
-        price: 'from $29.99'
-      }]
+      data: [productBuilder(), productBuilder()]
     })
     const { findAllByTestId } = setupApp()
 
