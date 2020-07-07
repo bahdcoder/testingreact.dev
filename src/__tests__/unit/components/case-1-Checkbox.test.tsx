@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { axe } from 'jest-axe'
 import { render, fireEvent } from '@testing-library/react'
 
