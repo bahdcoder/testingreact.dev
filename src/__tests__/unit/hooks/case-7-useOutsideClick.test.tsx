@@ -4,6 +4,22 @@ import { render, fireEvent } from '@testing-library/react'
 import useOutsideClick from '../../../hooks/useOutsideClick'
 
 describe('The useOutsideClick hook', () => {
+  const PanelToggle = () => {
+    const [showing, setShowing] = useState(true)
+
+    return (
+      <>
+        <button
+          data-testid="PanelToggleButton"
+          onClick={() => setShowing(false)}
+        >
+          Toggle panel
+        </button>
+        {showing ? <Panel /> : null}
+      </>
+    )
+  }
+
   const Panel = () => {
     const ref = useRef(null)
     const [showing, setShowing] = useState(false)
@@ -25,7 +41,7 @@ describe('The useOutsideClick hook', () => {
   // Very important to make sure the component is used the right way.
   // This test can be migrated in future, if the useOutsideClick
   // hook is moved to an external library at your company.
-  it('❌ calls the outside click handler when an outside click is initiated', () => {
+  it('calls the outside click handler when an outside click is initiated', () => {
     const { getByTestId } = render(
       <div>
         <button data-testid='ButtonOutsidePanel'></button>
@@ -40,5 +56,13 @@ describe('The useOutsideClick hook', () => {
     expect(getByTestId('PanelButton')).toHaveTextContent('SHOWING BUTTON')
   })
 
-  it('❌ cleans up the event listeners after component is unmounted', () => {})
+  it('cleans up the event listeners after component is unmounted', () => {
+    const removeEventListener = jest.spyOn(document, 'removeEventListener')
+
+    const { getByTestId } = render(<PanelToggle />)
+
+    fireEvent.click(getByTestId('PanelToggleButton'))
+
+    expect(removeEventListener).toHaveBeenCalled()
+  })
 })
