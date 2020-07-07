@@ -17,7 +17,29 @@ describe('The <FiltersWrapper /> component', () => {
     expect(getByTestId('TestParagraph')).toBeInTheDocument()
   })
 
-  it('❌ should update the filters context with correct state values', () => {})
+  it('❌ should update the filters context with correct state values', () => {
+    const hideMessage ='HIDE FILTERS'
+    const showMessage = 'SHOWING FILTERS'
+    const { getByText } = render(
+      <FiltersWrapper>
+        <FiltersContext.Consumer>
+          {({ showingFilters, toggleShowingFilters }) => {
+            return (
+              <button onClick={toggleShowingFilters}>
+                {showingFilters ? showMessage : hideMessage}
+              </button>
+            )
+          }}
+        </FiltersContext.Consumer>
+      </FiltersWrapper>
+    )
+
+    expect(getByText(hideMessage)).toBeInTheDocument()
+
+    fireEvent.click(getByText(hideMessage))
+
+    expect(getByText(showMessage)).toBeInTheDocument()
+  })
 
   it('❌ should update the body style to prevent scrolling when filter is toggled', () => {})
 })
