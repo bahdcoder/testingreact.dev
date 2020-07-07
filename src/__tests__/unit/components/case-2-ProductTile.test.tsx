@@ -24,6 +24,13 @@ describe('The <ProductTile /> component', () => {
   })
 
   it('renders a product tile with name and price only', () => {
+    const { queryByTestId } = render(
+      <ProductTile {...{
+        ...defaultProduct,
+        image: undefined
+      } as any} />
+    )
 
+      expect(queryByTestId('ProductTileImage')).toBeNull()
   })
 })
