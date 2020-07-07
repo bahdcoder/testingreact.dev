@@ -7,7 +7,15 @@ import { FiltersContext } from '../../../context/filters'
 import { FiltersWrapper } from '../../../components/FiltersWrapper'
 
 describe('The <FiltersWrapper /> component', () => {
-  it('❌ should render all children passed to it', () => {})
+  it('should render all children passed to it', () => {
+    const { getByTestId } = render(
+      <FiltersWrapper>
+        <p data-testid='TestParagraph'></p>
+      </FiltersWrapper>
+    )
+
+    expect(getByTestId('TestParagraph')).toBeInTheDocument()
+  })
 
   it('❌ should update the filters context with correct state values', () => {})
 
