@@ -30,6 +30,8 @@ describe('The app ', () => {
     </StoreProvider>
   )
 
+  afterEach(() => jest.clearAllMocks())
+
   test('it fetches and renders all products on the page', async () => {
     mockAxios.get.mockResolvedValue({
       data: [productBuilder(), productBuilder()]
@@ -56,5 +58,33 @@ describe('The app ', () => {
     expect(queryByText(/view results/i)).not.toBeInTheDocument()
   })
 
-  test('❌ it can search products as user types in the search field', async () => {})
+  test('it can search products as user types in the search field', async () => {
+    jest.useFakeTimers()
+    mockAxios.get.mockResolvedValueOnce({
+      data: [productBuilder(), productBuilder(), productBuilder(), productBuilder() ,productBuilder()]
+    }).mockResolvedValueOnce({
+      data: [productBuilder(), productBuilder()]
+    })
+    const { findAllByTestId, getByText, getByPlaceholderText }  = setupApp()
+
+    expect(await findAllByTestId('ProductTile')).toHaveLength(5)
+
+    fireEvent.click(getByText(/filter/i))
+
+    const searchBox = getByPlaceholderText(/largo/i)
+
+    fireEvent.change(searchBox, {
+      target: {
+        value: 'searching'
+      }
+    })
+
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    await waitFor(() => expect(mockAxios.get).toHaveBeenCalledTimes(2))
+
+    expect(await findAllByTestId('ProductTile')).toHaveLength(2)
+  })
 })
