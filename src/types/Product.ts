@@ -5,8 +5,8 @@ export interface Product {
   price?: string
   brand: string
   createdAt: string
-  isActive: true
-  isNew: true
-  isSoldOut: false
+  isActive: boolean
+  isNew: boolean
+  isSoldOut: boolean
   priceUnformatted: number
 }

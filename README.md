@@ -1,6 +1,6 @@
-# Testing React Workshop
+# The React Testing Masterclass
 
-Hi there 👋. My name is [Kati Frantz](https://katifrantz.com) and this is source material for [Testing react apps](https://testingreact.dev). Thank you very much for visiting this repository. If you haven't joined the course yet, please visit [Testing react](https://testingreact.dev) to enrol for free.
+Hi there 👋. My name is [Kati Frantz](https://katifrantz.com) and this is source material for [The React Testing Masterclass](https://testingreact.dev). Thank you very much for visiting this repository. If you haven't joined the course yet, please visit [Testing react](https://testingreact.dev) to enrol for free.
 
 ## System requirements
 - [Git v2](https://git-scm.com/) and above
