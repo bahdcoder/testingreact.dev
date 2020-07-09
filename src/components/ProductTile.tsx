@@ -2,17 +2,20 @@ import React, { FC } from 'react'
 import styled from 'styled-components'
 import { Product } from '../types/Product'
 import { BASE_URL } from '../helpers/constants'
+import { Link } from 'react-router-dom'
 
-const ProductTile: FC<Product> = ({ name, price, image }) => {
+const ProductTile: FC<Product> = ({ id, name, price, image }) => {
   return (
     <Wrapper data-testid="ProductTile">
       <ImageWrapper>
         {image && (
-          <Image
-            alt={name}
-            src={`${BASE_URL}${image}`}
-            data-testid="ProductTileImage"
-          />
+          <Link to={`/products/${id}`}>
+            <Image
+              alt={name}
+              src={`${BASE_URL}${image}`}
+              data-testid="ProductTileImage"
+            />
+          </Link>
         )}
       </ImageWrapper>
       <Content>
@@ -28,7 +31,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   background-color: rgb(242, 242, 242);
@@ -38,7 +41,7 @@ const ImageWrapper = styled.div`
   overflow: hidden;
 `
 
-const Image = styled.img`
+export const Image = styled.img`
   position: absolute;
   height: auto;
   top: 5%;

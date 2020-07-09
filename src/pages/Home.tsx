@@ -9,24 +9,24 @@ import useFilters from '../hooks/useFilters'
 import { fetchProducts } from '../store/action-creators'
 
 const Home: FC = () => {
-    const dispatch = useDispatch()
-    const { search } = useFilters()
-  
-    const [debouncedSearch] = useDebounce(search, 500)
-  
-    useEffect(() => {
-      dispatch(
-        fetchProducts({
-          search: debouncedSearch,
-        }),
-      )
-    }, [dispatch, debouncedSearch])
-  
-    const products = useSelector<StoreState, StoreState['products']>(
-      (state) => state.products,
-    )
+  const dispatch = useDispatch()
+  const { search } = useFilters()
 
-    return <ProductStream products={products.data} />
+  const [debouncedSearch] = useDebounce(search, 500)
+
+  useEffect(() => {
+    dispatch(
+      fetchProducts({
+        search: debouncedSearch,
+      }),
+    )
+  }, [dispatch, debouncedSearch])
+
+  const products = useSelector<StoreState, StoreState['products']>(
+    (state) => state.products,
+  )
+
+  return <ProductStream products={products.data} />
 }
 
 export default Home

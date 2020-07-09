@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The <Checkbox /> component Should render the label and checkbox the user will see 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm StDqN"
+    data-testid="Checkbox"
+  >
+    <input
+      class="sc-AxhCb iqvdaa"
+      id="TEST_CHECKBOX_ID"
+      type="checkbox"
+    />
+    <label
+      class="sc-AxiKw cwRuvq"
+      for="TEST_CHECKBOX_ID"
+    >
+      <span
+        class="sc-AxirZ bZbnmP"
+      >
+        TEST_CHECKBOX_LABEL
+      </span>
+    </label>
+  </div>
+</DocumentFragment>
+`;

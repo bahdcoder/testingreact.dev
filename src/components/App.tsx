@@ -1,22 +1,35 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 
+import Cart from './Cart'
 import Header from './Header'
 import ActiveFilters from './ActiveFilters'
 import FiltersOffCanvas from './FiltersOffCanvas'
 import styled, { createGlobalStyle } from 'styled-components'
 
 import Home from '../pages/Home'
+import Product from '../pages/Product'
 
 const App = () => {
+  const { pathname } = useLocation()
+
   return (
     <>
       <GlobalStyle />
       <Header />
-      <ActiveFilters />
-      <FiltersOffCanvas />
+      <Cart />
+
+      {pathname === '/' ? (
+        <>
+          <ActiveFilters />
+          <FiltersOffCanvas />
+        </>
+      ) : null}
       <Layout>
-        <Route path='/' component={Home} />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/products/:product" component={Product} />
+        </Switch>
       </Layout>
     </>
   )

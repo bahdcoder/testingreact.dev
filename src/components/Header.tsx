@@ -1,11 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useLocation } from 'react-router-dom'
 
 // hooks
 import { useFilters } from '../hooks/useFilters'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleCartOpen } from '../store/action-creators'
+import { StoreState } from '../types/Store'
 
 const Header = () => {
   const { toggleShowingFilters } = useFilters()
+  const { pathname } = useLocation()
+
+  const dispatch = useDispatch()
+
+  const { products } = useSelector<StoreState, StoreState['cart']>(
+    (state) => state.cart,
+  )
 
   return (
     <Wrapper>
@@ -15,9 +26,19 @@ const Header = () => {
         REACT.DEV
       </PageTitle>
 
-      <FilterButton data-testid="FilterButton" onClick={toggleShowingFilters}>
-        Filter
-      </FilterButton>
+      <div>
+        {pathname === '/' ? (
+          <FilterButton
+            data-testid="FilterButton"
+            onClick={toggleShowingFilters}
+          >
+            Filter
+          </FilterButton>
+        ) : null}
+        <CartButton onClick={() => dispatch(toggleCartOpen())}>
+          Cart ({products.length})
+        </CartButton>
+      </div>
     </Wrapper>
   )
 }
@@ -28,7 +49,7 @@ const PageTitle = styled.div`
   font-weight: bolder;
 `
 
-const FilterButton = styled.button`
+export const FilterButton = styled.button`
   position: relative;
   height: 33px;
   font-size: 12px;
@@ -45,6 +66,10 @@ const FilterButton = styled.button`
   &:hover {
     background-color: rgb(245, 245, 245);
   }
+`
+
+const CartButton = styled(FilterButton)`
+  margin-left: 10px;
 `
 
 const SpanHiddenOnMobile = styled.span`
