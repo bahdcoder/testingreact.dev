@@ -11,8 +11,7 @@ import {
 import { FilterButton as CheckoutButton } from './Header'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { AxiosResponse, AxiosError } from 'axios'
-import { Product } from '../types/Product'
+import { AxiosError } from 'axios'
 import { ADDED_TO_CART, TOGGLE_CART_OPEN } from '../store/constants'
 import { useHistory } from 'react-router-dom'
 
@@ -65,9 +64,6 @@ const CheckoutForm: FC<
           dispatch({
             type: TOGGLE_CART_OPEN,
           })
-
-          setWorking(false)
-          setError(null)
 
           push('/')
         })

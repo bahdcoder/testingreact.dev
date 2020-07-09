@@ -20,6 +20,12 @@ export const reducer = combineReducers<StoreState>({
   cart,
 })
 
+const middleware = [
+  applyMiddleware(thunk as ThunkMiddleware<StoreState>),
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+].filter(Boolean)
+
 export const createStore = (
   storeReducer = reducer,
   storeInitialState = initialState,
@@ -27,11 +33,7 @@ export const createStore = (
   createReduxStore(
     storeReducer,
     storeInitialState,
-    compose(
-      applyMiddleware(thunk as ThunkMiddleware<StoreState>),
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-        (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-    ),
+    compose(...middleware),
   )
 
 export default createStore(reducer, initialState)

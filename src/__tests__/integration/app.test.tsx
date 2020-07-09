@@ -90,9 +90,9 @@ describe('The app ', () => {
 
   test('❌it can navigate to the single product page', async () => {})
 
-  test('❌it can add / remove a product to cart', async () => {})
+  test('❌it can add a product to cart', async () => {})
 
-  test('❌it can view the cart content', async () => {})
+  test('❌it can remove a product from cart', async () => {})
 
   test('❌it can go through and complete the checkout flow', async () => {})
 })

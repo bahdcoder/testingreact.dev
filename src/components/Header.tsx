@@ -35,7 +35,7 @@ const Header = () => {
             Filter
           </FilterButton>
         ) : null}
-        <CartButton onClick={() => dispatch(toggleCartOpen())}>
+        <CartButton data-testid='CartButton' onClick={() => dispatch(toggleCartOpen())}>
           Cart ({products.length})
         </CartButton>
       </div>

@@ -30,4 +30,8 @@ describe('The Header component', () => {
 
     expect(defaultContext.toggleShowingFilters).toHaveBeenCalled()
   })
+
+  it('❌shows the filter button only on the home page', () => {
+
+  })
 })
