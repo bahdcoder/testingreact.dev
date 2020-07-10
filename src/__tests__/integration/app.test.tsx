@@ -1,5 +1,6 @@
 import React from 'react'
 import { Axios } from '../../helpers/axios'
+import { MemoryRouter } from 'react-router-dom'
 import { render, fireEvent, act, waitFor } from '@testing-library/react'
 import { Provider as StoreProvider } from 'react-redux'
 import { productBuilder } from '../utils'
@@ -16,9 +17,11 @@ describe('The app ', () => {
   const setupApp = () =>
     render(
       <StoreProvider store={createStore()}>
-        <FiltersWrapper>
-          <App />
-        </FiltersWrapper>
+        <MemoryRouter>
+          <FiltersWrapper>
+            <App />
+          </FiltersWrapper>
+        </MemoryRouter>
       </StoreProvider>,
     )
 
@@ -53,6 +56,12 @@ describe('The app ', () => {
   test('it can search products as user types in the search field', async () => {
     jest.useFakeTimers()
     mockAxios.get
+      // fetches the shopping cart items
+      .mockResolvedValueOnce({
+        data: [productBuilder()]
+      })
+
+      // fetches all the products on home page
       .mockResolvedValueOnce({
         data: [
           productBuilder(),
@@ -62,6 +71,8 @@ describe('The app ', () => {
           productBuilder(),
         ],
       })
+
+      // searches products
       .mockResolvedValueOnce({
         data: [productBuilder(), productBuilder()],
       })
@@ -83,7 +94,8 @@ describe('The app ', () => {
       jest.runAllTimers()
     })
 
-    await waitFor(() => expect(mockAxios.get).toHaveBeenCalledTimes(2))
+    // shopping cart, products home page, search products
+    await waitFor(() => expect(mockAxios.get).toHaveBeenCalledTimes(3))
 
     expect(await findAllByTestId('ProductTile')).toHaveLength(2)
   })

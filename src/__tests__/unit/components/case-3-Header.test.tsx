@@ -1,8 +1,11 @@
 import React from 'react'
+import { Provider as StoreProvider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
 import { render, fireEvent } from '@testing-library/react'
 
 import Header from '../../../components/Header'
 import { FiltersContext } from '../../../context/filters'
+import { createStore } from '../../../store'
 
 describe('The Header component', () => {
   const defaultContext = {
@@ -12,7 +15,11 @@ describe('The Header component', () => {
   const setupHeader = (value = defaultContext) =>
     render(
       <FiltersContext.Provider value={...value as any}>
-        <Header />
+        <StoreProvider store={createStore()}>
+          <MemoryRouter>
+            <Header />
+          </MemoryRouter>
+        </StoreProvider>
       </FiltersContext.Provider>,
     )
   it('renders header correctly', () => {

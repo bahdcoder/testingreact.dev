@@ -3,10 +3,10 @@
 exports[`The Header component renders header correctly 1`] = `
 <DocumentFragment>
   <header
-    class="sc-AxhCb ccgeXB"
+    class="sc-AxhUy ciJHJw"
   >
     <span
-      class="sc-AxiKw iyFHjw"
+      class="sc-AxhCb iSTeBQ"
     />
     <div
       class="sc-AxjAm dGBLMY"
@@ -15,12 +15,20 @@ exports[`The Header component renders header correctly 1`] = `
       <span />
       REACT.DEV
     </div>
-    <button
-      class="sc-AxirZ xKohc"
-      data-testid="FilterButton"
-    >
-      Filter
-    </button>
+    <div>
+      <button
+        class="sc-AxirZ xKohc"
+        data-testid="FilterButton"
+      >
+        Filter
+      </button>
+      <button
+        class="sc-AxirZ sc-AxiKw lesrjN"
+        data-testid="CartButton"
+      >
+        Cart (0)
+      </button>
+    </div>
   </header>
 </DocumentFragment>
 `;
