@@ -1,6 +1,7 @@
+import { Product } from '../types/Product'
 import { build, fake } from '@jackfranklin/test-data-bot'
 
-export const productBuilder = build('Product', {
+export const productBuilder = build<Partial<Product>>('Product', {
   fields: {
     id: fake((f) => f.random.number()),
     image: fake((f) => f.image.imageUrl()),

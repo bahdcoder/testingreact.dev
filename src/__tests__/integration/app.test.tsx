@@ -1,13 +1,14 @@
 import React from 'react'
 import { Axios } from '../../helpers/axios'
 import { MemoryRouter } from 'react-router-dom'
-import { render, fireEvent, act, waitFor } from '@testing-library/react'
+import { render, fireEvent, act, waitFor, findByText } from '@testing-library/react'
 import { Provider as StoreProvider } from 'react-redux'
 import { productBuilder } from '../utils'
 
 import App from '../../components/App'
 import { createStore } from '../../store'
 import { FiltersWrapper } from '../../components/FiltersWrapper'
+import { debug } from 'console'
 
 jest.mock('../../helpers/axios')
 
@@ -100,7 +101,31 @@ describe('The app ', () => {
     expect(await findAllByTestId('ProductTile')).toHaveLength(2)
   })
 
-  test('❌it can navigate to the single product page', async () => {})
+  test('❌it can navigate to the single product page', async () => {
+    const product = productBuilder()
+
+    mockAxios.get.mockImplementation((url: string) => {
+      return new Promise(resolve => {
+
+        if (url === `products/${product.id}`) {
+          return resolve({
+            data: product
+          })
+        }
+
+        return resolve({
+          data: [product]
+        })
+      })
+    })
+
+    const { findByTestId, findByText } = setupApp()
+
+    fireEvent.click(await findByTestId('ProductTileLink'))
+
+    await waitFor(() => expect(mockAxios.get).toHaveBeenCalledTimes(3))
+    expect(await findByText(product.price)).toBeInTheDocument()
+  })
 
   test('❌it can add a product to cart', async () => {})
 
