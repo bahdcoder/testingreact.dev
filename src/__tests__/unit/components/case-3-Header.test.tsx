@@ -12,11 +12,14 @@ describe('The Header component', () => {
     toggleShowingFilters: jest.fn(),
   }
 
-  const setupHeader = (value = defaultContext) =>
+  const setupHeader = (value = defaultContext, routerProps = {
+    initialEntries: ['/', '/products/1'],
+    initialIndex: 0
+  }) =>
     render(
       <FiltersContext.Provider value={...value as any}>
         <StoreProvider store={createStore()}>
-          <MemoryRouter>
+          <MemoryRouter {...routerProps}>
             <Header />
           </MemoryRouter>
         </StoreProvider>
@@ -38,7 +41,12 @@ describe('The Header component', () => {
     expect(defaultContext.toggleShowingFilters).toHaveBeenCalled()
   })
 
-  it('❌shows the filter button only on the home page', () => {
+  it('shows the filter button only on the home page', () => {
+    const { queryByText } = setupHeader(undefined, {
+      initialEntries: ['/', '/products/1'],
+      initialIndex: 1
+    })
 
+    expect(queryByText(/filter/i)).toBeNull()
   })
 })
