@@ -83,7 +83,7 @@ const Cart = () => {
               </ProductsWrapper>
 
               <CheckoutButtonWrapper>
-                <CheckoutButton onClick={() => setCheckingOut(true)}>
+                <CheckoutButton data-testid='CheckoutButton' onClick={() => setCheckingOut(true)}>
                   Checkout ${cartTotal / 100}
                 </CheckoutButton>
               </CheckoutButtonWrapper>

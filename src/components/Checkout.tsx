@@ -83,7 +83,7 @@ const CheckoutForm: FC<
         <CardElement />
       </CardElementWrapper>
       <CheckoutButtonWrapper>
-        <CheckoutButton disabled={working} onClick={checkout}>
+        <CheckoutButton data-testid='PlaceOrderButton' disabled={working} onClick={checkout}>
           {working ? 'Placing Order' : 'Place Order'}
         </CheckoutButton>
       </CheckoutButtonWrapper>
