@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { FunctionComponent, ChangeEvent } from 'react'
+import React, { FunctionComponent, ChangeEvent, useState, useCallback } from 'react'
 
 interface CheckboxPropsInterface {
   label: string
@@ -19,9 +19,15 @@ const Checkbox: FunctionComponent<CheckboxPropsInterface> = ({
   checked = false,
   background = '#000',
   checkMarkBackground = '#fff',
-}) => (
-  <Wrapper data-testid="Checkbox">
-    <Input checked={checked} onChange={onChange} type="checkbox" id={id} />
+}) => {
+  const [isChecked, setIsChecked] = useState(checked)
+  const callback = useCallback((e) => {
+    setIsChecked(!isChecked)
+    onChange(e)
+  }, [])
+
+  return <Wrapper data-testid="Checkbox">
+    <Input checked={isChecked} onChange={callback} type="checkbox" id={id} />
     <Label
       htmlFor={id}
       background={background}
@@ -31,7 +37,7 @@ const Checkbox: FunctionComponent<CheckboxPropsInterface> = ({
       <LabelText>{label}</LabelText>
     </Label>
   </Wrapper>
-)
+}
 
 const Wrapper = styled.div``
 
